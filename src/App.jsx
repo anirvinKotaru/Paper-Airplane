@@ -800,7 +800,7 @@ function AppContent() {
       mediaRecorder.start();
       setIsRecording(true);
     } catch (error) {
-      alert('Microphone access denied');
+      showToast('Microphone access denied. Please allow microphone access to record audio.', 'error');
     }
   };
 

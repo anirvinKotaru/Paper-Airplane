@@ -7,7 +7,29 @@ const WriteNote = ({ isOpen, onClose, onSave, savingMessage }) => {
   const handleSave = () => {
     // Fix: Check for trimmed content, not just truthy value
     if (!noteContent.trim()) {
-      alert('Please add some content to your note');
+      // Use a more user-friendly notification instead of alert
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, #DC143C, #B22222);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 25px;
+        font-weight: 700;
+        z-index: 2000;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        animation: slideInDown 0.3s ease-out;
+      `;
+      toast.textContent = 'Please add some content to your note';
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.style.animation = 'slideInUp 0.3s ease-out';
+        setTimeout(() => document.body.removeChild(toast), 300);
+      }, 3000);
       return;
     }
     onSave(noteContent.trim()); // Trim whitespace
